@@ -31,6 +31,7 @@ def call_user(update: Update):
 		return update.effective_user.full_name
 
 
+# callback
 async def callback(update: Update, context: CallbackContext):
 	print('callback, haha!')
 
@@ -81,6 +82,10 @@ async def throw_die(update, context):
 		await update.message.reply_text(text)
 	except (IndexError, ValueError, OverflowError):
 		await update.message.reply_text('Упс! Я не могу бросить такой кубик :(')
+
+
+async def sacrifice(update: Update, context: ContextTypes):
+	pass
 
 
 # changing nickname dialogue
