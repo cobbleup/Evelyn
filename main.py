@@ -17,7 +17,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-TOKEN = 'TOKEN'
+TOKEN = 'TOKEN_PLACEHOLDER'
 
 db_functions.global_init('db/user_data.db')
 db_sess = db_functions.create_session()
