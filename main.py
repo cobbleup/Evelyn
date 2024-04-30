@@ -17,7 +17,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-TOKEN = '6913260202:AAFH5gze4voSZsDy-mGSdAu-_p4JNp3_8ck'
+TOKEN = 'TOKEN'
 
 db_functions.global_init('db/user_data.db')
 db_sess = db_functions.create_session()
@@ -84,8 +84,31 @@ async def throw_die(update, context):
 		await update.message.reply_text('Упс! Я не могу бросить такой кубик :(')
 
 
-async def sacrifice(update: Update, context: ContextTypes):
-	pass
+async def sacrifice(update: Update, context):
+	if len(context.args) == 0:
+		await update.message.reply_text('Выберите количество!')
+
+	if len(context.args) != 1:
+		await update.message.reply_text('Не могу столько пожертвовать ;(')
+
+	if len(context.args) == 1:
+
+		try:
+			amount = int(context.args[0])
+
+			if amount <= 0:
+				await update.message.reply_text('Никаких краж!')
+
+			elif user_can_pay(update.effective_user.username, amount):
+				pay_user(update.effective_user.username, -amount)
+				await update.message.reply_text('Сделано!\n'
+												'Вы пожертвовали уже {money} монет!')
+
+			else:
+				await update.message.reply_text('У вас не хватает денег ;(')
+
+		except Exception:
+			await update.message.reply_text('Я не могу это пожертвовать...')
 
 
 # changing nickname dialogue
